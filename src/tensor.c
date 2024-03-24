@@ -1,3 +1,5 @@
+#include <stdlib.h>
+
 struct Tensor
 {
     int shape[5];
@@ -13,36 +15,33 @@ struct Tensor createTensor(int shape[5], int size, float *data)
         t.shape[i] = shape[i];
     }
 
-    t.data = (float*)malloc(size * (sizeof(float)));
+    t.data = (float *)malloc(size * (sizeof(float)));
     for (int i = 0; i < size; i++)
     {
         t.data[i] = data[i];
     }
-    
+
     t.size = size;
 
     return t;
 }
 
-
-struct Tensor setTensor(struct Tensor t,int shape[5], int size, float *data)
+void setTensor(struct Tensor * t, int shape[5], int size, float *data)
 {
     for (int i = 0; i < 5; i++)
     {
-        t.shape[i] = shape[i];
+        t->shape[i] = shape[i];
     }
 
     for (int i = 0; i < size; i++)
     {
-        t.data[i] = data[i];
+        t->data[i] = data[i];
     }
-    
-    t.size = size;
 
-    return t;
+    t->size = size;
 }
 
-void add(struct Tensor t1, struct Tensor t2, struct Tensor out)
+void add(struct Tensor t1, struct Tensor t2, struct Tensor * out)
 {
 
     float arr3[t1.size];
@@ -52,10 +51,10 @@ void add(struct Tensor t1, struct Tensor t2, struct Tensor out)
         arr3[i] = t1.data[i] + t2.data[i];
     }
 
-    setTensor(out,t1.shape, t1.size, arr3);
+    setTensor(out, t1.shape, t1.size, arr3);
 };
 
-struct Tensor multiply(struct Tensor t1, struct Tensor t2)
+void multiply(struct Tensor t1, struct Tensor t2, struct Tensor * out)
 {
 
     float arr3[t1.size];
@@ -65,10 +64,10 @@ struct Tensor multiply(struct Tensor t1, struct Tensor t2)
         arr3[i] = (t1.data)[i] * (t2.data)[i];
     }
 
-    return createTensor(t1.shape, t1.size, arr3);
+    setTensor(out, t1.shape, t1.size, arr3);
 };
 
-struct Tensor divide_tensors(struct Tensor t1, struct Tensor t2)
+void divide_tensors(struct Tensor t1, struct Tensor t2, struct Tensor * out)
 {
 
     float arr3[t1.size];
@@ -78,10 +77,10 @@ struct Tensor divide_tensors(struct Tensor t1, struct Tensor t2)
         arr3[i] = (t1.data)[i] / (t2.data)[i];
     }
 
-    return createTensor(t1.shape, t1.size, arr3);
+    setTensor(out, t1.shape, t1.size, arr3);
 };
 
-struct Tensor subtract(struct Tensor t1, struct Tensor t2)
+void subtract(struct Tensor t1, struct Tensor t2, struct Tensor * out)
 {
 
     float arr3[t1.size];
@@ -91,5 +90,10 @@ struct Tensor subtract(struct Tensor t1, struct Tensor t2)
         arr3[i] = (t1.data)[i] - (t2.data)[i];
     }
 
-    return createTensor(t1.shape, t1.size, arr3);
+    setTensor(out, t1.shape, t1.size, arr3);
 };
+
+
+void destroy(struct Tensor t){
+    free(t.data);
+}

@@ -20,7 +20,7 @@ void setup()
 
 void loop()
 {
-  add(t,t2,t);
+  add(t,t2,&t);
   Serial.printf("%2f %2f %2f %2f\n",t.data[0],t.data[1],t.data[2],t.data[3]);
-  delay(2000);
+  delay(20000);
 }
