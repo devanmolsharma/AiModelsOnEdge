@@ -1,5 +1,7 @@
 #include <Arduino.h>
-#include "tensor.c"
+#include "helpers.c"
+
+
 int shape1[5] = {1,1};
 double data1[] = {1.0, 2.0, 3.0, 120.0};
 
@@ -20,7 +22,7 @@ void setup()
 
 void loop()
 {
-  multiply_number(t2,2,&t);
-  Serial.printf("%2f %2f %2f %2f\n",t.data[0],t.data[1],t.data[2],t.data[3]);
+  sum(t2,&t);
+  Serial.printf("%2f\n",t.data[0]);
   delay(6e4);
 }
