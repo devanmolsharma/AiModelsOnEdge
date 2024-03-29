@@ -5,14 +5,13 @@ void forward(struct LinearConfig config, struct Tensor inputs, struct Tensor *ou
 
     for (int i = 0; i < config.output_size; i++)
     {
-        struct Tensor temp = createTensor(inputs.shape);
+        struct Tensor temp = createTensorFromShape(inputs.shape);
         struct Tensor layerWeights = config.weights[i];
         double layerBias = config.biases[i];
 
-        multiply(layerWeights, inputs,&temp);
-        add_number(temp,layerBias,&temp);
-        sumAll(temp,&temp);
-        out->data[i] = temp.data[0];
+        multiply(layerWeights, inputs, &temp);
+        sumAll(temp, &temp);
+        out->data[i] = temp.data[0] + layerBias;
         destroy(temp);
     }
 }

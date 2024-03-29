@@ -1,10 +1,10 @@
 #include "tensor.c"
 
-struct Tensor createTensor(int shape[5])
+struct Tensor createTensorFromShape(int shape[5])
 {
     struct Tensor t;
 
-    int total_size = 0;
+    int total_size = 1;
 
     for (int i = 0; i < 5; i++)
     {

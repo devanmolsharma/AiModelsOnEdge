@@ -1,6 +1,6 @@
 #include "tensor.c"
 
-struct Tensor createTensor(int shape[5]);
+struct Tensor createTensorFromShape(int shape[5]);
 
 struct Tensor createTensorFromValues(double * values,int size);
 
