@@ -1,6 +1,6 @@
 #include "tensor.c"
 
-struct Tensor createTensor(int shape[5], int size, double *data)
+struct Tensor createTensor(int shape[5])
 {
     struct Tensor t;
 
@@ -16,15 +16,31 @@ struct Tensor createTensor(int shape[5], int size, double *data)
         }
     }
 
-    // assert(total_size == size);
+    t.data = (double *)malloc(total_size * (sizeof(double)));
+    for (int i = 0; i < total_size; i++)
+    {
+        t.data[i] = 0;
+    }
 
-        t.data = (double *)malloc(size * (sizeof(double)));
+    t.size = total_size;
+
+    return t;
+}
+
+
+struct Tensor createTensorFromValues(double * values,int size)
+{
+    struct Tensor t;
+
+
+    t.data = (double *)malloc(size * (sizeof(double)));
     for (int i = 0; i < size; i++)
     {
-        t.data[i] = data[i];
+        t.data[i] = values[i];
     }
 
     t.size = size;
+    t.shape[0] = size;
 
     return t;
 }
@@ -43,7 +59,6 @@ void setTensor(struct Tensor *t, int shape[5], int size, double *data)
 
     t->size = size;
 }
-
 
 void add(struct Tensor t1, struct Tensor t2, struct Tensor *out)
 {
@@ -151,7 +166,7 @@ void relu(struct Tensor t1, struct Tensor *out)
     setTensor(out, t1.shape, t1.size, arr3);
 };
 
-void sum(struct Tensor t1, struct Tensor *out)
+void sumAll(struct Tensor t1, struct Tensor *out)
 {
 
     double sum = 0;

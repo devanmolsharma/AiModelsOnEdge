@@ -1,19 +1,19 @@
 #include <Arduino.h>
-#include "helpers.c"
+#include "linearFunctions.h"
+
+Tensor weights[] = {
+    createTensorFromValues(new double[1]{1}, 1),
+};
+
+struct LinearConfig config = {
+    1,
+    1,
+    weights,
+    new double[1]{0}};
 
 
-int shape1[5] = {1,1};
-double data1[] = {1.0, 2.0, 3.0, 120.0};
-
-// Create a new instance of Tensor
-struct Tensor t = createTensor(shape1,sizeof(data1)/sizeof(float),data1);
-
-
-int shape2[5] = {1,1};
-double data2[] = {1.0, 2.0, 3.0, 120.0};
-
-// Create a new instance of Tensor
-struct Tensor t2 = createTensor(shape2,sizeof(data2)/sizeof(float),data2);
+Tensor out = createTensor(new int[5]{1});
+Tensor inp = createTensor(new int[5]{1});
 
 void setup()
 {
@@ -22,7 +22,7 @@ void setup()
 
 void loop()
 {
-  sum(t2,&t);
-  Serial.printf("%2f\n",t.data[0]);
-  delay(6e4);
+  forward(config,inp,&out);
+  Serial.printf("%2f\n",out.data[0]);
+  delay(6e5);
 }
