@@ -1,6 +1,6 @@
-#include "linear.cpp"
+#include "rnn.cpp"
 
-void linear_forward(struct LinearConfig config, struct Tensor inputs, struct Tensor *out)
+void rnn_forward(struct LinearConfig config, struct Tensor inputs, struct Tensor *out)
 {
 
     for (int i = 0; i < config.output_size; i++)
